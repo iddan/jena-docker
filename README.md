@@ -6,7 +6,7 @@ docker run -d -p 8080:8080 iddan/jena;
 ```
 [Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/) will be available at http://localhost:8080/fuseki/
 
-Configuration should be exposed as a volume mapped to `/etc/fuseki/configuration/`
+[Configuration](https://jena.apache.org/documentation/fuseki2/fuseki-configuration.html#fuseki-configuration-file) should be exposed as a volume mapped to `/etc/fuseki/configuration/`
 
 ### To Do
  - Configuration documentation
