@@ -9,7 +9,7 @@ docker run -d -p 3030:3030 iddan/jena;
 #### With memory dataset
 
 ```bash
-docker run -p 3030:3030 jena --mem /dataset
+docker run -p 3030:3030 jena --mem /dataset;
 ```
 
 #### With Configuration
@@ -28,16 +28,16 @@ docker run jena $SERVICE --service http://host.docker.internal:$PORT/$DATASET/sp
 
 ##### Examples
 
-Query all triples in dataset dataset on port 3030
+Query all triples in dataset "dataset" on port 3030
 
 ```bash
 docker run jena s-query --service http://host.docker.internal:3030/dataset/sparql "SELECT ?a ?b ?c WHERE { ?a ?b ?c }";
 ```
 
-Load data from `data/data.ttl` to dataset dataset, graph default on port 3030
+Load data from `data/data.ttl` to dataset "dataset", graph default on port 3030
 
 ```bash
-docker run -v $PWD/data:/data jena s-put http://host.docker.internal:3030/dataset default /data/data.ttl
+docker run -v $PWD/data:/data jena s-put http://host.docker.internal:3030/dataset default /data/data.ttl;
 ```
 
 
