@@ -2,7 +2,7 @@
 
 ### Usage
 ```
-docker run -d -p 8080:8080 iddan/jena;
+docker run -d -p 3030:3030 iddan/jena;
 ```
 [Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/) will be available at http://localhost:8080
 
@@ -10,8 +10,30 @@ docker run -d -p 8080:8080 iddan/jena;
 [Configuration](https://jena.apache.org/documentation/fuseki2/fuseki-configuration.html#fuseki-configuration-file) should be exposed as a volume mapped to `/etc/fuseki/configuration`
 
 ```bash
-docker run -d -p 8080:8080 -v configuration:/etc/fuseki/configuration iddan/jena;
+docker run -d -p 3030:3030 -v configuration:/etc/fuseki/configuration iddan/jena;
 ```
+
+#### Using SPARQL over HTTP
+[SOH (SPARQL Over HTTP)](https://jena.apache.org/documentation/fuseki2/soh.html) is a set of command-line scripts for working with SPARQL 1.1. SOH is server-independent and will work with any compliant SPARQL 1.1 system offering HTTP access.
+
+```bash
+docker run jena $SERVICE --service http://host.docker.internal:$PORT/$DATASET/sparql # ...
+```
+
+##### Examples
+
+Query all triples in data-set default on port 3030
+
+```bash
+docker run jena s-query --service http://host.docker.internal:3030/default/sparql "SELECT ?a ?b ?c WHERE { ?a ?b ?c }";
+```
+
+Load data from `data/data.ttl` to data-set default, graph default on port 3030
+
+```bash
+docker run -v $PWD/data:/data jena s-put http://host.docker.internal:3030/default default /data/data.ttl
+```
+
 
 ### Documentation
 
@@ -29,7 +51,7 @@ docker run -d -p 8080:8080 -v configuration:/etc/fuseki/configuration iddan/jena
 # Build
 docker build -t jena .;
 # Run
-docker run -p 8080:8080 jena;
+docker run -p 3030:3030 jena;
 ```
 
 ### Previous Art
