@@ -1,10 +1,16 @@
 # Apache Jena Docker
 
 ### Usage
-```
+```bash
 docker run -d -p 3030:3030 iddan/jena;
 ```
-[Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/) will be available at http://localhost:8080
+[Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/) will be available at http://localhost:3030
+
+#### With memory dataset
+
+```bash
+docker run -p 3030:3030 jena --mem /dataset
+```
 
 #### With Configuration
 [Configuration](https://jena.apache.org/documentation/fuseki2/fuseki-configuration.html#fuseki-configuration-file) should be exposed as a volume mapped to `/etc/fuseki/configuration`
@@ -22,16 +28,16 @@ docker run jena $SERVICE --service http://host.docker.internal:$PORT/$DATASET/sp
 
 ##### Examples
 
-Query all triples in data-set default on port 3030
+Query all triples in dataset dataset on port 3030
 
 ```bash
-docker run jena s-query --service http://host.docker.internal:3030/default/sparql "SELECT ?a ?b ?c WHERE { ?a ?b ?c }";
+docker run jena s-query --service http://host.docker.internal:3030/dataset/sparql "SELECT ?a ?b ?c WHERE { ?a ?b ?c }";
 ```
 
-Load data from `data/data.ttl` to data-set default, graph default on port 3030
+Load data from `data/data.ttl` to dataset dataset, graph default on port 3030
 
 ```bash
-docker run -v $PWD/data:/data jena s-put http://host.docker.internal:3030/default default /data/data.ttl
+docker run -v $PWD/data:/data jena s-put http://host.docker.internal:3030/dataset default /data/data.ttl
 ```
 
 

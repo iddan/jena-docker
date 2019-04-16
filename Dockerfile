@@ -8,7 +8,7 @@ RUN apt-get update
 RUN apt-get install -y ruby
 
 ENV FUSEKI_BASE /etc/fuseki
-ENV PATH="/usr/local/apache-jena-fuseki/bin:${PATH}"
+ENV PATH="/usr/local/apache-jena-fuseki:/usr/local/apache-jena-fuseki/bin:${PATH}"
 
 # Extract the archive
 RUN tar -zxvf apache-jena-fuseki.tar.gz
@@ -21,8 +21,5 @@ WORKDIR /usr/local/apache-jena-fuseki
 # Set Shiro to allow any connection by default
 COPY shiro.ini $FUSEKI_BASE/shiro.ini
 
-# Set default service
-COPY default.ttl $FUSEKI_BASE/configuration/default.ttl
-
 # Run server
-CMD ./fuseki-server
+ENTRYPOINT ["fuseki-server"]
